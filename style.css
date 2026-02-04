@@ -1,5 +1,5 @@
 /* =========================================
-   1. GLOBAL RESET & FONTS (全局设置)
+   1. 全局基础设置 (GLOBAL RESET)
    ========================================= */
 :root {
     --text-main: #333;
@@ -11,14 +11,14 @@ body {
     padding: 0;
     font-family: 'Courier New', Courier, monospace;
     color: var(--text-main);
-    background-color: #f0f0f0; /* 默认背景色 */
-    overflow-x: hidden; /* 防止横向滚动条 */
+    background-color: #f0f0f0;
+    
+    /* 关键修复：允许垂直滚动，禁止水平溢出 */
+    overflow-y: auto; 
+    overflow-x: hidden; 
 }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+a { text-decoration: none; color: inherit; }
 
 /* 页面淡入动画 */
 @keyframes pageFadeIn {
@@ -27,22 +27,22 @@ a {
 }
 
 /* =========================================
-   2. NAVIGATION BAR (导航栏)
+   2. 导航栏 (NAVIGATION)
    ========================================= */
 nav {
     display: flex;
     justify-content: center;
     gap: 15px;
     padding: 20px;
-    position: fixed; /* 固定在顶部 */
+    position: fixed; /* 固定在顶部，不随页面滚动 */
     top: 0;
     width: 100%;
-    z-index: 1000; /* 保证在最上层 */
-    pointer-events: none; /* 让导航栏背景不挡住下面的点击 */
+    z-index: 1000;
+    pointer-events: none; /* 让导航栏背景不挡住点击 */
 }
 
 nav a {
-    pointer-events: auto; /* 按钮本身可以点击 */
+    pointer-events: auto; /* 按钮可点击 */
     text-decoration: none;
     color: #555;
     background: rgba(255, 255, 255, 0.6);
@@ -64,11 +64,11 @@ nav a:hover, nav a.active {
 }
 
 /* =========================================
-   3. WORKS PAGE STYLES (作品集页面)
+   3. WORKS 页面样式 (WORKS PAGE)
    ========================================= */
 .container {
     max-width: 900px;
-    margin: 80px auto 40px; /* 给顶部导航栏留出空间 */
+    margin: 80px auto 40px;
     border: 2px solid #888;
     background: rgba(240, 240, 240, 0.95);
     box-shadow: 8px 8px 0px rgba(0,0,0,0.25);
@@ -113,7 +113,7 @@ header {
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
-/* 作品网格 */
+/* 这里的 Grid 是给 Works 用的 */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -129,9 +129,7 @@ header {
     background: #f9f9f9;
 }
 
-.item:hover {
-    background: #fff;
-}
+.item:hover { background: #fff; }
 
 .img-wrapper {
     width: 100%;
@@ -161,128 +159,4 @@ header {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
-    color: #555;
-}
-
-footer {
-    padding: 30px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #666;
-    border-top: 2px solid #888;
-    background: #e8e8e8;
-}
-
-/* =========================================
-   4. IDEAS PAGE STYLES (云朵页面 & 交互)
-   ========================================= */
-
-.sky-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;   /* ✨ 改成 min-height：至少一屏，但内容多了自动变长 */
-    overflow-x: hidden;  /* ✨ 只禁止横向滚动，允许竖向滚动 */
-    overflow-y: auto;    /* ✨ 允许竖向滚动 */
-    padding-bottom: 100px; /* ✨ 给底部留点呼吸空间，防止云朵贴底 */
-}
-
-/* 云朵卡片基础样式 */
-.cloud-card {
-    position: absolute; 
-    background: rgba(255, 255, 255, 0.5); 
-    backdrop-filter: blur(6px); /* 毛玻璃效果 */
-    padding: 25px; 
-    border: 1px solid rgba(255, 255, 255, 0.8); 
-    color: #333; 
-    width: 200px;
-    /* 不规则圆角，看起来像云 */
-    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 弹性动画 */
-    cursor: zoom-in;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-
-.cloud-title {
-    font-weight: bold;
-    font-size: 1rem;
-    margin-bottom: 8px;
-    text-align: center;
-}
-
-.cloud-content {
-    font-size: 0.8rem;
-    line-height: 1.4;
-    display: none; /* 平时隐藏内容，只显示标题，或者太小看不清 */
-}
-/* 当云朵比较大或者鼠标悬停时显示内容 */
-.cloud-card:hover .cloud-content, 
-.cloud-card.expanded .cloud-content {
-    display: block;
-}
-/* 如果你想平时也显示内容，可以删掉上面那个 display: none */
-.cloud-content { display: block; } /* 这里强制让内容平时也显示 */
-
-
-/* 鼠标悬停效果 */
-.cloud-card:hover { 
-    transform: scale(1.1); 
-    background: rgba(255,255,255,0.85); 
-    z-index: 50; 
-    border-color: #333;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-/* --- 交互核心：变大状态 (Expanded) --- */
-/* 使用 !important 覆盖 HTML 里的 inline style (top/left) */
-.cloud-card.expanded {
-    position: fixed !important; 
-    top: 50% !important; 
-    left: 50% !important;
-    /* 居中并放大1.5倍，同时消除旋转 */
-    transform: translate(-50%, -50%) scale(1.5) rotate(0deg) !important; 
-    z-index: 9999 !important;
-    background: rgba(255, 255, 255, 0.98);
-    width: auto; 
-    min-width: 300px;
-    max-width: 80%;
-    height: auto;
-    border-radius: 15px; /* 放大后变成整齐的圆角矩形 */
-    border: 2px solid #000;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.2);
-    cursor: zoom-out;
-    padding: 40px;
-    text-align: left;
-}
-
-.cloud-card.expanded .cloud-title {
-    font-size: 1.5rem;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    text-align: left;
-}
-
-.cloud-card.expanded .cloud-content {
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-/* --- 黑色背景遮罩 (Overlay) --- */
-#overlay {
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* 70% 透明度的黑 */
-    z-index: 9990; /* 在云朵下面 */
-    opacity: 0; 
-    pointer-events: none; /* 平时点不到 */
-    transition: opacity 0.3s ease;
-}
-
-#overlay.active { 
-    opacity: 1; 
-    pointer-events: auto; /* 激活时可以点击 */
-}
+    color: #
