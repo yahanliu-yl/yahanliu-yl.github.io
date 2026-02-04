@@ -1,77 +1,162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="icon.png" type="image/png">
-    <title>YAHAN LIU | IDEAS</title>
-</head>
-<body>
+/* =========================================
+   1. 全局基础设置 (GLOBAL RESET)
+   ========================================= */
+:root {
+    --text-main: #333;
+    --border-color: #888;
+}
 
-<nav style="justify-content: center; margin-top: 20px;">
-    <a href="index.html">HOME/WORKS</a>
-    <a href="ideas.html" class="active">IDEAS/DREAM</a>
-    <a href="others.html">OTHERS</a>
-</nav>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+    color: var(--text-main);
+    background-color: #f0f0f0;
+    
+    /* 关键修复：允许垂直滚动，禁止水平溢出 */
+    overflow-y: auto; 
+    overflow-x: hidden; 
+}
 
-<div class="sky-container">
+a { text-decoration: none; color: inherit; }
 
-    <div class="cloud-card cloud-lg" style="top: 5%; left: 10%;">
-        <div class="cloud-title">🎧 Loop Songs</div>
-        <div class="cloud-content">
-            1. Voodoo in my blood<br>
-            2. Angel (Massive Attack)<br>
-            3. Any Y2K techno mix<br>
-            <br>
-            *Music creates the space.*
-        </div>
-    </div>
+/* 页面淡入动画 */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-    <div class="cloud-card cloud-sm" style="top: 15%; left: 60%; text-align:center;">
-        <div style="font-size: 2rem;">🐟</div>
-        <div class="cloud-content">Just keep swimming...<br>or floating.</div>
-    </div>
+/* =========================================
+   2. 导航栏 (NAVIGATION)
+   ========================================= */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    position: fixed; /* 固定在顶部，不随页面滚动 */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    pointer-events: none; /* 让导航栏背景不挡住点击 */
+}
 
-    <div class="cloud-card" style="top: 35%; left: 30%;">
-        <div class="cloud-title">👀 Eyes On</div>
-        <div class="cloud-content">
-            Nam June Paik (TV Buddha)<br>
-            Björk (Visuals)<br>
-            Pipilotti Rist<br>
-            ...and my friends in Art School.
-        </div>
-    </div>
+nav a {
+    pointer-events: auto; /* 按钮可点击 */
+    text-decoration: none;
+    color: #555;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(5px);
+    padding: 8px 20px;
+    border: 1px solid #999;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
 
-    <div class="cloud-card cloud-lg" style="top: 50%; left: 55%;">
-        <div class="cloud-title">🤝 Collab With?</div>
-        <div class="cloud-content">
-            I want to work with sound designers.<br>
-            Creating a space where visual glitch meets audio distortion.<br>
-            <br>
-            DM me if u r interested.
-        </div>
-    </div>
+nav a:hover, nav a.active {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    border-color: #000;
+}
 
-    <div class="cloud-card cloud-sm" style="top: 65%; left: 15%;">
-        <div class="cloud-title">🍳 Mood</div>
-        <div class="cloud-content">
-            Low saturation.<br>
-            High noise.<br>
-            Fried eggs on a Sunday.<br>
-        </div>
-    </div>
+/* =========================================
+   3. WORKS 页面样式 (WORKS PAGE)
+   ========================================= */
+.container {
+    max-width: 900px;
+    margin: 80px auto 40px;
+    border: 2px solid #888;
+    background: rgba(240, 240, 240, 0.95);
+    box-shadow: 8px 8px 0px rgba(0,0,0,0.25);
+    animation: pageFadeIn 0.8s ease-out;
+}
 
-    <div class="cloud-card" style="top: 80%; left: 45%;">
-        <div class="cloud-title">📈 Current Obsession</div>
-        <div class="cloud-content">
-            Restoring old camcorders.<br>
-            The texture of 240p videos.<br>
-            Transparent electronics.
-        </div>
-    </div>
+header {
+    border-bottom: 2px solid #888;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    background: #e8e8e8;
+}
 
-</div>
+.bio-box {
+    font-size: 0.8rem;
+    border: 1px solid #888;
+    padding: 8px;
+    background: #fff;
+    line-height: 1.4;
+}
 
-</body>
-</html>
+/* 滚动字幕 */
+.ticker-wrap {
+    background: #000;
+    color: #fff;
+    padding: 5px 0;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    border-bottom: 2px solid #888;
+}
+
+.ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 15s infinite linear;
+}
+
+@keyframes ticker {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* 这里的 Grid 是给 Works 用的 */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.item {
+    border-right: 1px solid #888;
+    border-bottom: 1px solid #888;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+    background: #f9f9f9;
+}
+
+.item:hover { background: #fff; }
+
+.img-wrapper {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    border: 1px solid #999;
+    background: #000;
+    margin-bottom: 10px;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(30%);
+    transition: 0.5s ease;
+}
+
+.item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+.meta {
+    margin-top: auto;
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #
