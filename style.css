@@ -1,5 +1,5 @@
 /* =========================================
-   1. 全局基础设置 (GLOBAL RESET)
+   1. GLOBAL RESET (全局设置)
    ========================================= */
 :root {
     --text-main: #333;
@@ -12,37 +12,35 @@ body {
     font-family: 'Courier New', Courier, monospace;
     color: var(--text-main);
     background-color: #f0f0f0;
-    
-    /* 关键修复：允许垂直滚动，禁止水平溢出 */
-    overflow-y: auto; 
-    overflow-x: hidden; 
+    overflow-x: hidden; /* 只禁止横向滚动 */
+    /* 不要在 body 上写 overflow-y，让浏览器自己处理垂直滚动 */
 }
 
 a { text-decoration: none; color: inherit; }
 
-/* 页面淡入动画 */
+/* 页面淡入 */
 @keyframes pageFadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================
-   2. 导航栏 (NAVIGATION)
+   2. NAVIGATION (导航栏)
    ========================================= */
 nav {
     display: flex;
     justify-content: center;
     gap: 15px;
     padding: 20px;
-    position: fixed; /* 固定在顶部，不随页面滚动 */
+    position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    pointer-events: none; /* 让导航栏背景不挡住点击 */
+    pointer-events: none;
 }
 
 nav a {
-    pointer-events: auto; /* 按钮可点击 */
+    pointer-events: auto;
     text-decoration: none;
     color: #555;
     background: rgba(255, 255, 255, 0.6);
@@ -59,104 +57,92 @@ nav a:hover, nav a.active {
     background: rgba(255, 255, 255, 0.95);
     color: #000;
     transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-    border-color: #000;
 }
 
 /* =========================================
-   3. WORKS 页面样式 (WORKS PAGE)
+   3. WORKS PAGE (为了兼容 Works 页面)
    ========================================= */
 .container {
     max-width: 900px;
     margin: 80px auto 40px;
     border: 2px solid #888;
     background: rgba(240, 240, 240, 0.95);
-    box-shadow: 8px 8px 0px rgba(0,0,0,0.25);
     animation: pageFadeIn 0.8s ease-out;
 }
+header { border-bottom: 2px solid #888; padding: 20px; display: flex; justify-content: space-between; background: #e8e8e8; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.item { border-right: 1px solid #888; border-bottom: 1px solid #888; padding: 15px; display: flex; flex-direction: column; background: #f9f9f9; }
+.img-wrapper { width: 100%; height: 250px; overflow: hidden; background: #000; margin-bottom: 10px; }
+.item img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); }
+.meta { margin-top: auto; font-size: 0.75rem; display: flex; justify-content: space-between; }
+.ticker-wrap { background: #000; color: #fff; padding: 5px 0; font-size: 0.8rem; white-space: nowrap; overflow: hidden; border-bottom: 2px solid #888;}
+.ticker { display: inline-block; animation: ticker 15s infinite linear; padding-left: 100%; }
+@keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
+footer { padding: 30px; text-align: center; font-size: 0.8rem; background: #e8e8e8; border-top: 2px solid #888; }
 
-header {
-    border-bottom: 2px solid #888;
+/* =========================================
+   4. IDEAS PAGE (交互核心代码)
+   ========================================= */
+
+/* 容器：给予明确的高度，确保滚动条出现 */
+.sky-container {
+    position: relative;
+    width: 100%;
+    height: 140vh; /* 屏幕高度的1.4倍，保证有地方滑 */
+    margin: 0 auto;
+    overflow: hidden; /* 防止云朵飘出左右边界 */
+}
+
+/* 云朵卡片：平时状态 */
+.cloud-card {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    background: #e8e8e8;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%; /* 默认椭圆 */
+    color: #333;
+    width: 180px;
+    cursor: zoom-in;
+    transition: all 0.4s ease; /* 平滑过渡 */
+    z-index: 10;
 }
 
-.bio-box {
-    font-size: 0.8rem;
-    border: 1px solid #888;
-    padding: 8px;
-    background: #fff;
-    line-height: 1.4;
-}
-
-/* 滚动字幕 */
-.ticker-wrap {
-    background: #000;
-    color: #fff;
-    padding: 5px 0;
-    font-size: 0.8rem;
-    white-space: nowrap;
-    overflow: hidden;
-    border-bottom: 2px solid #888;
-}
-
-.ticker {
-    display: inline-block;
-    padding-left: 100%;
-    animation: ticker 15s infinite linear;
-}
-
-@keyframes ticker {
-    0% { transform: translate3d(0, 0, 0); }
-    100% { transform: translate3d(-100%, 0, 0); }
-}
-
-/* 这里的 Grid 是给 Works 用的 */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-}
-
-.item {
-    border-right: 1px solid #888;
-    border-bottom: 1px solid #888;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    transition: 0.3s;
-    background: #f9f9f9;
-}
-
-.item:hover { background: #fff; }
-
-.img-wrapper {
-    width: 100%;
-    height: 250px;
-    overflow: hidden;
-    border: 1px solid #999;
-    background: #000;
-    margin-bottom: 10px;
-}
-
-.item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: grayscale(30%);
-    transition: 0.5s ease;
-}
-
-.item:hover img {
-    filter: grayscale(0%);
+/* 鼠标悬停 */
+.cloud-card:hover {
     transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 20;
 }
 
-.meta {
-    margin-top: auto;
-    font-size: 0.75rem;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    color: #
+/* 云朵里的内容：平时隐藏或变小，看你喜好，这里设为平时可见但小 */
+.cloud-title { font-weight: bold; text-align: center; margin-bottom: 5px; }
+.cloud-content { font-size: 0.8rem; line-height: 1.4; display: block; }
+
+/* --- 激活状态 (点击后) --- */
+.cloud-card.expanded {
+    position: fixed !important; /* 强制固定在屏幕中间 */
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(1.5) rotate(0deg) !important;
+    z-index: 9999 !important;
+    width: auto;
+    max-width: 80%;
+    min-width: 300px;
+    background: #fff;
+    border-radius: 10px; /* 展开后变成圆角矩形 */
+    box-shadow: 0 0 50px rgba(0,0,0,0.3);
+    cursor: zoom-out;
+    padding: 30px;
+    border: 2px solid #333;
+}
+
+/* 遮罩层 */
+#overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 9998;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+}
+#overlay.active { opacity: 1; pointer-events: auto; }
