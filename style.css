@@ -51,3 +51,225 @@ nav a:hover, nav a.active {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* =========================================
+   4. WORKS PAGE (Archive Layout)
+   ========================================= */
+.container {
+    max-width: 980px;
+    margin: 90px auto 70px;
+    background: #e8e8e8;
+    border: 2px solid #6b6b6b;
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.15);
+    padding: 18px 20px 28px;
+    animation: pageFadeIn 0.6s ease both;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #2b2b2b;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.1rem;
+    letter-spacing: 1px;
+}
+
+.bio-box {
+    background: #f5f5f5;
+    border: 1px solid #777;
+    padding: 10px 14px;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.ticker-wrap {
+    margin: 12px 0 18px;
+    background: #111;
+    color: #f2f2f2;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    overflow: hidden;
+}
+
+.ticker {
+    white-space: nowrap;
+    display: inline-block;
+    animation: tickerMove 18s linear infinite;
+}
+
+@keyframes tickerMove {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.item {
+    background: #f4f4f4;
+    border: 1px solid #8a8a8a;
+    padding: 10px;
+    text-align: center;
+}
+
+button.item {
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    border: 1px solid #8a8a8a;
+    background: #f4f4f4;
+}
+
+.gallery-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gallery-item:hover,
+.gallery-item:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    outline: none;
+}
+
+.img-wrapper {
+    background: #fff;
+    border: 1px solid #bbb;
+    padding: 6px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    image-rendering: auto;
+}
+
+.meta {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+footer {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #333;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    padding: 30px;
+    z-index: 2000;
+}
+
+.lightbox.open { display: flex; }
+
+.lightbox img {
+    max-width: min(860px, 92vw);
+    max-height: 70vh;
+    border: 6px solid #f4f4f4;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-caption {
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    background: #fff;
+    border: none;
+    font-size: 1.6rem;
+    line-height: 1;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+body.lightbox-open { overflow: hidden; }
+
+/* =========================================
+   5. IDEAS PAGE (Dreaming Bubble)
+   ========================================= */
+.bubble-widget {
+    position: absolute;
+    top: 16%;
+    right: 8%;
+    width: 220px;
+    min-height: 150px;
+    padding: 30px 22px;
+    border-radius: 55% 45% 50% 50% / 50% 60% 40% 50%;
+    border: 2px solid #b5b5b5;
+    background: radial-gradient(circle at 30% 30%, #fff 0%, #f3f3f3 60%, #e0e0e0 100%);
+    background-image: var(--bubble-image);
+    background-size: cover;
+    background-position: center;
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.15);
+    color: #444;
+    font-size: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bubble-widget:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 10px 14px 26px rgba(0, 0, 0, 0.2);
+}
+
+.bubble-widget.bubble-pop {
+    transform: scale(1.06);
+}
+
+.bubble-text {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 6px 10px;
+    border-radius: 12px;
+}
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .container { margin-top: 100px; }
+}
+
+@media (max-width: 600px) {
+    nav { gap: 8px; padding: 16px 10px; }
+    nav a { padding: 6px 12px; font-size: 0.7rem; }
+    .grid { grid-template-columns: 1fr; }
+    header { flex-direction: column; }
+    .bubble-widget { right: 4%; width: 190px; }
+}

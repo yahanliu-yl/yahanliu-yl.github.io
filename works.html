@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="icon.png" type="image/png">
     <title>YAHAN LIU | WORKS</title>
+    <script src="site.js" defer></script>
 </head>
 <body>
 
@@ -35,68 +36,78 @@
         </div>
     </div>
 
-    <div class="grid">
-        <div class="item">
-            <a href="project1.html" style="text-decoration:none; cursor:pointer;">
-                <div class="img-wrapper">
-                    <img src="Photo1.JPG" alt="Body Series">
-                </div>
-            </a>
+    <div class="grid" id="gallery">
+        <button class="item gallery-item" type="button"
+            data-full="Photo1.JPG" data-title="01. HEALING PROCESS" data-medium="PHOTO">
+            <div class="img-wrapper">
+                <img src="Photo1.JPG" alt="01. HEALING PROCESS">
+            </div>
             <div class="meta">
                 <span>01. HEALING PROCESS</span>
                 <span>PHOTO</span>
             </div>
-        </div>
+        </button>
 
-        <div class="item">
+        <button class="item gallery-item" type="button"
+            data-full="photo2.JPG" data-title="02. IDENTITY PLAY" data-medium="PERFORMANCE">
             <div class="img-wrapper">
-                <img src="photo2.JPG" alt="Portrait">
+                <img src="photo2.JPG" alt="02. IDENTITY PLAY">
             </div>
             <div class="meta">
                 <span>02. IDENTITY PLAY</span>
                 <span>PERFORMANCE</span>
             </div>
-        </div>
+        </button>
 
-        <div class="item">
+        <button class="item gallery-item" type="button"
+            data-full="photo_3.JPG" data-title="03. ORGANIC FORM" data-medium="INSTALLATION">
             <div class="img-wrapper">
-                <img src="photo_3.JPG" alt="Sculpture">
+                <img src="photo_3.JPG" alt="03. ORGANIC FORM">
             </div>
             <div class="meta">
                 <span>03. ORGANIC FORM</span>
                 <span>INSTALLATION</span>
             </div>
-        </div>
+        </button>
 
-        <div class="item">
+        <button class="item gallery-item" type="button"
+            data-full="photo_4.jpg" data-title="04. DISTORTION" data-medium="DIGITAL">
             <div class="img-wrapper">
-                <img src="photo_4.jpg" alt="Fabric">
+                <img src="photo_4.jpg" alt="04. DISTORTION">
             </div>
             <div class="meta">
                 <span>04. DISTORTION</span>
                 <span>DIGITAL</span>
             </div>
-        </div>
+        </button>
 
-        <div class="item">
+        <button class="item gallery-item" type="button"
+            data-full="Photo_5.jpg" data-title="05. TEXTURE GLITCH" data-medium="MIXED">
             <div class="img-wrapper">
-                <img src="Photo_5.jpg" alt="Glitch">
+                <img src="Photo_5.jpg" alt="05. TEXTURE GLITCH">
             </div>
             <div class="meta">
                 <span>05. TEXTURE GLITCH</span>
                 <span>MIXED</span>
             </div>
-        </div>
+        </button>
 
-        <div class="item">
+        <button class="item gallery-item" type="button"
+            data-full="photo_6.jpg" data-title="06. FUTURE OF HUMAN?" data-medium="COLLAGE">
             <div class="img-wrapper">
-                <img src="photo_6.jpg" alt="Collage">
+                <img src="photo_6.jpg" alt="06. FUTURE OF HUMAN?">
             </div>
             <div class="meta">
                 <span>06. FUTURE OF HUMAN?</span>
                 <span>COLLAGE</span>
             </div>
-        </div>
+        </button>
+    </div>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" type="button" aria-label="Close gallery">×</button>
+        <img id="lightbox-img" alt="">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 
     <footer>
